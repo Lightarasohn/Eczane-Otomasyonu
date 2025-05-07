@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EczaneAPI.Models;
 
-public partial class Sati
+public partial class Satis
 {
     public int Id { get; set; }
 

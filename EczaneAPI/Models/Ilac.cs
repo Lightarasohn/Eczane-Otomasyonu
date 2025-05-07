@@ -13,5 +13,5 @@ public partial class Ilac
 
     public int StokDurumu { get; set; }
 
-    public virtual ICollection<Sati> Satis { get; set; } = new List<Sati>();
+    public virtual ICollection<Satis> Satislar { get; set; } = new List<Satis>();
 }

@@ -15,9 +15,9 @@ public partial class EczaneContext : DbContext
     {
     }
 
-    public virtual DbSet<Ilac> Ilacs { get; set; }
+    public virtual DbSet<Ilac> Ilaclar { get; set; }
 
-    public virtual DbSet<Sati> Satis { get; set; }
+    public virtual DbSet<Satis> Satislar { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("name=EczaneConnection");
@@ -34,11 +34,11 @@ public partial class EczaneContext : DbContext
             entity.Property(e => e.StokDurumu).HasColumnName("Stok Durumu");
         });
 
-        modelBuilder.Entity<Sati>(entity =>
+        modelBuilder.Entity<Satis>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SATIS__3214EC078B664D20");
+            entity.HasKey(e => e.Id).HasName("PK__Satis__3214EC078B664D20");
 
-            entity.ToTable("SATIS");
+            entity.ToTable("Satis");
 
             entity.Property(e => e.AliciEmail)
                 .HasMaxLength(50)
@@ -46,10 +46,10 @@ public partial class EczaneContext : DbContext
             entity.Property(e => e.IlacId).HasColumnName("Ilac Id");
             entity.Property(e => e.SatisTarihi).HasColumnName("Satis Tarihi");
 
-            entity.HasOne(d => d.Ilac).WithMany(p => p.Satis)
+            entity.HasOne(d => d.Ilac).WithMany(p => p.Satislar)
                 .HasForeignKey(d => d.IlacId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SATIS__Ilac Id__398D8EEE");
+                .HasConstraintName("FK__Satis__Ilac Id__398D8EEE");
         });
 
         OnModelCreatingPartial(modelBuilder);
