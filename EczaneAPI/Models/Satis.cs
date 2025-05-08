@@ -9,9 +9,7 @@ public partial class Satis
 
     public string AliciEmail { get; set; } = null!;
 
-    public int IlacId { get; set; }
-
     public DateTime SatisTarihi { get; set; }
 
-    public virtual Ilac Ilac { get; set; } = null!;
+    public virtual ICollection<SatisIlac> SatisIlacs { get; set; } = new List<SatisIlac>();
 }
