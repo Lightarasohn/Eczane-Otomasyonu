@@ -21,6 +21,8 @@ builder.Logging.AddConsole();
 
 // Kullanici Servisleri
 builder.Services.AddScoped<IIlacRepository, IlacRepository>();
+builder.Services.AddScoped<ISatisRepository, SatisRepository>();
+builder.Services.AddScoped<ISatisIlacRepository, SatisIlacRepository>();
 
 
 // Veri Tabani Eklemesi

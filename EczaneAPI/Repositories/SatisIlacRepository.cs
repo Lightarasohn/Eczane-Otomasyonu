@@ -24,7 +24,11 @@ namespace EczaneAPI.Repositories
         public async Task<SatisIlac> CreateSatisIlacAsync(SatisIlacCreateDto dto)
         {
             _logger.LogWarning("CreateSatisIlacAsync methodu baslatildi");
+            var satis = await _context.Satislar.FirstOrDefaultAsync(s => s.Id == dto.SatisId) ?? throw new Exception("Boyle bir satis yok");
+            var ilac = await _context.Ilaclar.FirstOrDefaultAsync(i => i.Id == dto.IlacId) ?? throw new Exception("Boyle bir ilac yok");
             var satisIlac = dto.ToModel();
+            satisIlac.Ilac = ilac;
+            satisIlac.Satis = satis;
             var createdSatisIlac = await _context.SatisIlacs.AddAsync(satisIlac);
             _logger.LogInformation("SatisIlac eklendi");
             await _context.SaveChangesAsync();
@@ -76,7 +80,7 @@ namespace EczaneAPI.Repositories
         public async Task<SatisIlacDto> UpdateSatisIlacByIdAsync(int satisId, int ilacId, SatisIlacUpdateDto dto)
         {
             _logger.LogWarning("UpdateSatisIlacByIdAsync methodu baslatildi");
-            var satisIlac = await _context.SatisIlacs
+            var satisIlac = await _context.SatisIlacs.Include(x => x.Satis).Include(x => x.Ilac)
                 .FirstOrDefaultAsync(x => x.SatisId == satisId && x.IlacId == ilacId) 
                 ?? throw new Exception("SatisIlac bulunamadi");
             _logger.LogInformation("SatisIlac alindi");
