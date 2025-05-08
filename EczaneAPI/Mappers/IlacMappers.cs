@@ -33,5 +33,14 @@ namespace EczaneAPI.Mappers
                 Fiyati = dto.Fiyati
             };
         }
+        public static IlacUpdateDto ToUpdateDto(this Ilac model)
+        {
+            return new IlacUpdateDto
+            {
+                Adi = model.Adi,
+                StokDurumu = model.StokDurumu,
+                Fiyati = model.Fiyati
+            };
+        }
     }
 }

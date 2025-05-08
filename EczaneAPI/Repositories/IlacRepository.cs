@@ -22,6 +22,12 @@ namespace EczaneAPI.Repositories
         public async Task<Ilac> CreateIlacAsync(IlacCreateDto dto)
         {
             _logger.LogWarning("CreateIlacAsync methodu baslatildi");
+            var existingIlac = await _context.Ilaclar.FirstOrDefaultAsync(i => i.Adi == dto.Adi);
+            if (existingIlac != null)
+            {
+                _logger.LogWarning("Bu isimde bir ilac zaten var");
+                throw new Exception("Bu isimde bir ilac zaten var");
+            }
             var ilac = dto.ToModel();
             var createdİlac = await _context.Ilaclar.AddAsync(ilac) ?? throw new Exception("Ilac Veri Tabanina Eklenemedi");
             _logger.LogInformation("Ilac veri tabanina eklendi");

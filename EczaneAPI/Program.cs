@@ -18,6 +18,7 @@ builder.Services.AddOpenApi();
 // Logger Servisleri
 builder.Services.AddLogging();
 builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 // Kullanici Servisleri
 builder.Services.AddScoped<IIlacRepository, IlacRepository>();

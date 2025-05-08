@@ -39,8 +39,24 @@ namespace EczaneAPI.Controllers
             if(!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var satisIlac = await _satisIlacRepo.GetSatisIlacByIdAsync(IlacId:ilacId, SatisId:satisId);
+                var satisIlac = await _satisIlacRepo.GetSatisIlacByIdAsync(SatisId:satisId, IlacId:ilacId);
                 return Ok(satisIlac);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{satisId}")]
+        public async Task<IActionResult> GetBySatisId([FromRoute]int satisId)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var satisIlaclar = await _satisIlacRepo.GetSatisIlacBySatisIdAsync(SatisId:satisId);
+                return Ok(satisIlaclar);
+
             }
             catch(Exception e)
             {
@@ -78,13 +94,13 @@ namespace EczaneAPI.Controllers
             }
         }
 
-        [HttpPut("{satisId}/{ilacId}")]
-        public async Task<IActionResult> Put([FromRoute]int satisId, [FromRoute]int ilacId, [FromBody]SatisIlacUpdateDto dto)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody]SatisIlacUpdateDto dto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var satisIlac = await _satisIlacRepo.UpdateSatisIlacByIdAsync(IlacId:ilacId, SatisId:satisId, dto:dto);
+                var satisIlac = await _satisIlacRepo.UpdateSatisIlacByIdAsync(dto:dto);
                 return Ok(satisIlac);
             }
             catch(Exception e)
