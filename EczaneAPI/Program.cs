@@ -13,7 +13,15 @@ builder.Services.AddControllers()
     .AddNewtonsoftJson(option => 
         option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddOpenApi();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhostClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // Buraya izin vermek istediğin adresi yaz
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 // Logger Servisleri
 builder.Services.AddLogging();
@@ -33,6 +41,8 @@ builder.Services.AddDbContext<EczaneContext>(options =>
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowLocalhostClient");
 
 app.UseAuthorization();
 
