@@ -35,7 +35,7 @@ const IlacAdd = ({setIlaclar, ilaclar}) => {
         style={{justifyContent:"center", alignContent:"center"}}
         destroyOnHidden
       >
-        <IlacAddForm 
+        <IlacAddForm
         setModalOpen={setModalOpen} 
         isSuccess={isSuccess} 
         setIsSuccess={setIsSuccess} 

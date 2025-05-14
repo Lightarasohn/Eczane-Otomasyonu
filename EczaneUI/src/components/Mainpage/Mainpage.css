@@ -6,6 +6,6 @@
 }
 
 .mainpage-inside-header {
-    justify-content: space-between;
-    align-items:baseline;
+    justify-content: space-evenly;
+    gap: 10px;
 }

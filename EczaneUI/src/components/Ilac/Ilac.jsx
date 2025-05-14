@@ -1,8 +1,9 @@
 import { Checkbox, List } from "antd";
 import "./Ilac.css";
 import IlacDeleteButton from "./IlacDeleteButton";
+import DeleteILac from "../../api/DeleteIlac";
 
-const Ilac = ({ ilac, checkedList, setCheckedList }) => {
+const Ilac = ({ ilac, checkedList, setCheckedList, ilaclar, setIlaclar, filteredList, setFilteredList }) => {
   const handleCheckboxChange = () => {
     if (checkedList.some(item => item.id === ilac.id)) {
       setCheckedList(checkedList.filter(item => item.id !== ilac.id));
@@ -10,6 +11,13 @@ const Ilac = ({ ilac, checkedList, setCheckedList }) => {
       setCheckedList([...checkedList, ilac]);
     }
   };
+
+  const onDeleteButtonClick = async () => {
+        const deleteResult = await DeleteILac(ilac.id);
+        console.log(deleteResult);
+        setFilteredList([filteredList.filter(item => item.id !== ilac.id)]);
+        setIlaclar(ilaclar.filter(item => item.id !== ilac.id));
+  }
 
   return (
     <List.Item>
@@ -22,7 +30,9 @@ const Ilac = ({ ilac, checkedList, setCheckedList }) => {
           checked={checkedList.some(item => item.id === ilac.id)}
           onChange={handleCheckboxChange}
         />
-        <IlacDeleteButton  className="item-delete-button"  />
+        <IlacDeleteButton  
+        className="item-delete-button"
+        onDeleteButtonClick={onDeleteButtonClick}  />
       </div>
     </List.Item>
   );

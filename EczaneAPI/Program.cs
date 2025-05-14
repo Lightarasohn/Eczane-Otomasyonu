@@ -36,7 +36,11 @@ builder.Services.AddScoped<ISatisIlacRepository, SatisIlacRepository>();
 
 // Veri Tabani Eklemesi
 builder.Services.AddDbContext<EczaneContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EczaneConnection") ?? "" ));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("EczaneConnection") ?? "",
+        sqlOptions => sqlOptions.EnableRetryOnFailure()
+    )
+);
 
 var app = builder.Build();
 

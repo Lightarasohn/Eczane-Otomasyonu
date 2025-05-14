@@ -9,7 +9,5 @@ namespace EczaneAPI.DTOs.SatisDtos
     public class SatisCreateDto
     {
         public string AliciEmail { get; set; } = null!;
-
-        public DateTime SatisTarihi { get; set; }
     }
 }

@@ -24,10 +24,18 @@ namespace EczaneAPI.Mappers
         }
         public static Satis ToModel(this SatisCreateDto dto)
         {
+            DateTime now = DateTime.Now;
             return new Satis
             {
                 AliciEmail = dto.AliciEmail,
-                SatisTarihi = dto.SatisTarihi
+                SatisTarihi = new DateTime(
+                    now.Year,
+                    now.Month,
+                    now.Day,
+                    now.Hour,
+                    now.Minute,
+                    now.Second
+                )
             };
         }
     }

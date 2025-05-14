@@ -3,13 +3,23 @@ import IlacList from "../Ilac/IlacList";
 import IlacSearch from "../Ilac/IlacSearch";
 import "./MainpageContent.css";
 import GetIlaclar from "../../api/GetIlaclar";
+import GetSatislar from "../../api/GetSatislar";
+import Satislar from "../Satislar/Satislar";
 
-const MainpageContent = ({pageKey, ilaclar, setIlaclar}) => {
-    
-    const [checkedList, setCheckedList] = useState([]);
+const MainpageContent = ({pageKey, ilaclar, setIlaclar, checkedList, setCheckedList}) => {
+    const [satislar, setSatislar] = useState([]);
     const [filteredList, setFilteredList] = useState([]);
 
-    
+    useEffect(() => {console.log(checkedList)},[checkedList])
+
+    useEffect(() => {
+        const fetchSatislar = async () => {
+            const resultSatislar = await GetSatislar();
+            setSatislar(resultSatislar);
+        }
+
+        fetchSatislar();
+    },[])
 
     useEffect( () => {
         const fetchIlaclar = async () => {
@@ -41,10 +51,19 @@ const MainpageContent = ({pageKey, ilaclar, setIlaclar}) => {
                         checkedList={checkedList} 
                         setCheckedList={setCheckedList} 
                         filteredList={filteredList}
+                        ilaclar={ilaclar}
+                        setIlaclar={setIlaclar}
+                        setFilteredList={setFilteredList}
                     />
                 </div>
             );
         case "3":
+            return(
+                <div className="satislar-content">
+                    <Satislar satislar={satislar}></Satislar>
+                </div>    
+            );
+        case "4":
             return (
                 <div className="raporlama-content">
                     <h1>Raporlama</h1>
