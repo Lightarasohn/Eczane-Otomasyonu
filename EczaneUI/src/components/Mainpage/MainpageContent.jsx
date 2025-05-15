@@ -5,13 +5,23 @@ import "./MainpageContent.css";
 import GetIlaclar from "../../api/GetIlaclar";
 import GetSatislar from "../../api/GetSatislar";
 import Satislar from "../Satislar/Satislar";
+import Raporlar from "../Raporlar/Raporlar";
+import GetRaporlar from "../../api/GetRaporlar";
 
 const MainpageContent = ({
-        pageKey, ilaclar, setIlaclar, checkedList, setCheckedList, satislar, setSatislar
+        pageKey, ilaclar, setIlaclar, checkedList, setCheckedList, satislar, setSatislar,
+        raporlar, setRaporlar
     }) => {
     const [filteredList, setFilteredList] = useState([]);
 
-    useEffect(() => {console.log(checkedList)},[checkedList])
+    useEffect(() => {
+        const fetchRaporlar = async () => {
+            var resultRaporlar = await GetRaporlar();
+            setRaporlar(resultRaporlar);
+            console.log("Result:" + resultRaporlar);
+        }
+        fetchRaporlar();
+    },[setRaporlar])
 
     useEffect(() => {
         const fetchSatislar = async () => {
@@ -67,7 +77,7 @@ const MainpageContent = ({
         case "4":
             return (
                 <div className="raporlama-content">
-                    <h1>Raporlama</h1>
+                    <Raporlar setRaporlar={setRaporlar} raporlar={raporlar}></Raporlar>
                 </div>
             );
     }

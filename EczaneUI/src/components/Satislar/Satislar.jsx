@@ -33,6 +33,7 @@ const Satislar = ({ satislar }) => {
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         footer={null}
+        closable={false}
         destroyOnClose
       >
         {selectedSatis && <SatisDetay satis={selectedSatis} setIsOpen={setIsOpen} />}

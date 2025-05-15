@@ -29,8 +29,8 @@ const SatisButton = ({checkedList, satislar, setSatislar}) => {
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         onOk={() => setIsOpen(false)}
-        closable={false}
         footer={null}
+        closable={false}
         destroyOnClose
       >
         <SatisForm checkedList={checkedList} setIsOpen={setIsOpen} handleSubmit={handleSubmit}/>
