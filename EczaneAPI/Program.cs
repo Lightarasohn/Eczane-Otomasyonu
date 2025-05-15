@@ -32,7 +32,8 @@ builder.Logging.SetMinimumLevel(LogLevel.Information);
 builder.Services.AddScoped<IIlacRepository, IlacRepository>();
 builder.Services.AddScoped<ISatisRepository, SatisRepository>();
 builder.Services.AddScoped<ISatisIlacRepository, SatisIlacRepository>();
-
+builder.Services.AddScoped<IRaporRepository, RaporRepository>();
+builder.Services.AddScoped<IRaporSatisRepository, RaporSatisRepository>();
 
 // Veri Tabani Eklemesi
 builder.Services.AddDbContext<EczaneContext>(options =>
