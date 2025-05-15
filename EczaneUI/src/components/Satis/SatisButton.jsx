@@ -4,12 +4,14 @@ import { useState } from "react";
 import SatisForm from "./SatisForm";
 import SatisOlustur from "../../api/SatisOlustur";
 
-const SatisButton = ({checkedList}) => {
+
+const SatisButton = ({checkedList, satislar, setSatislar}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = async (values) => {
     console.log(values)
-    await SatisOlustur(values);
+    const satis = await SatisOlustur(values);
+    setSatislar([...satislar, satis])
   };
 
   return (

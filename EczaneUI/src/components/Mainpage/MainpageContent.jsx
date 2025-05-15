@@ -6,8 +6,9 @@ import GetIlaclar from "../../api/GetIlaclar";
 import GetSatislar from "../../api/GetSatislar";
 import Satislar from "../Satislar/Satislar";
 
-const MainpageContent = ({pageKey, ilaclar, setIlaclar, checkedList, setCheckedList}) => {
-    const [satislar, setSatislar] = useState([]);
+const MainpageContent = ({
+        pageKey, ilaclar, setIlaclar, checkedList, setCheckedList, satislar, setSatislar
+    }) => {
     const [filteredList, setFilteredList] = useState([]);
 
     useEffect(() => {console.log(checkedList)},[checkedList])
@@ -19,7 +20,7 @@ const MainpageContent = ({pageKey, ilaclar, setIlaclar, checkedList, setCheckedL
         }
 
         fetchSatislar();
-    },[])
+    },[setSatislar])
 
     useEffect( () => {
         const fetchIlaclar = async () => {

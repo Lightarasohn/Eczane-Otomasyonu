@@ -1,9 +1,10 @@
-import { InputNumber, Button, Form, Input, message } from "antd";
+import { InputNumber, Button, Form, Input, Modal } from "antd";
 import { useState } from "react";
 import "./SatisForm.css";
 
 const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
   const [miktarData, setMiktarData] = useState({});
+  const [isError, setIsError] = useState(false);
 
   const handleMiktarChange = (value, id) => {
     setMiktarData(prev => ({
@@ -14,7 +15,7 @@ const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
 
   const onFinish = (values) => {
     if (checkedList.length === 0) {
-      message.error("Satış oluşturmak için en az 1 ilaç seçilmelidir.");
+      setIsError(true);
       return;
     }
 
@@ -30,6 +31,7 @@ const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
   };
 
   return (
+    <>
     <Form layout="vertical" onFinish={onFinish}>
       <h1 style={{ fontSize: "30px" }}>Seçilen ilaçlar</h1>
 
@@ -89,6 +91,13 @@ const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
         </Button>
       </div>
     </Form>
+    <Modal footer={null} onCancel={() => setIsError(false)} onClose={() => setIsError(false)}
+    onOk={() => setIsError(false)}
+    open={isError}>
+      <h1>Satış için en az 1 ilaç seçilmelidir</h1>
+      <Button type="primary" danger variant="solid" onClick={() => setIsError(false)}>Tamam</Button>
+    </Modal>
+    </>
   );
 };
 

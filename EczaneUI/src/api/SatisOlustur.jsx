@@ -12,10 +12,12 @@ const SatisOlustur = async (satisEmailIlaclar) => {
         body: JSON.stringify(email)
     };
 
+    let satis = null;
+
     try {
         const satisResult = await fetch("http://localhost:5169/api/satis", satisRequestOptions);
         if (satisResult.ok) {
-            const satis = await satisResult.json(); // ✅ await ekledik
+            satis = await satisResult.json(); // ✅ await ekledik
 
             for (const ilac of ilaclar) {
                 console.log(ilac);
@@ -51,6 +53,7 @@ const SatisOlustur = async (satisEmailIlaclar) => {
     } catch (e) {
         console.error("Satış isteği sırasında hata:", e);
     }
+    return satis;
 };
 
 export default SatisOlustur;

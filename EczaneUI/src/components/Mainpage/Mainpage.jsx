@@ -12,6 +12,7 @@ const Mainpage = () => {
     const [page, setPage] = useState("1");
     const [ilaclar, setIlaclar] = useState([]);
     const [checkedList, setCheckedList] = useState([]);
+    const [satislar, setSatislar] = useState([]);
 
     const items = [
         { key: "1", label: "Ana Sayfa" },
@@ -22,7 +23,6 @@ const Mainpage = () => {
 
     const handleMenuClick = (e) => {
         setPage(e.key);
-        console.log(e);
     }
   return (
     <Layout className="mainpage-outside-layout">
@@ -43,7 +43,7 @@ const Mainpage = () => {
               {page === "2" ? 
               <>
                 <IlacAdd setIlaclar={setIlaclar} ilaclar={ilaclar}/>
-                <SatisButton checkedList={checkedList}/>
+                <SatisButton checkedList={checkedList} satislar={satislar} setSatislar={setSatislar}/>
               </>
                : <></>}
         </Header>
@@ -53,7 +53,9 @@ const Mainpage = () => {
             ilaclar={ilaclar} 
             setIlaclar={setIlaclar}
             checkedList={checkedList}
-            setCheckedList={setCheckedList} />
+            setCheckedList={setCheckedList}
+            satislar={satislar}
+            setSatislar={setSatislar} />
         </Content>
         <Footer className="mainpage-inside-footer" style={{ textAlign: 'center' }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
