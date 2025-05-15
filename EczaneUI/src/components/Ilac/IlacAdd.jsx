@@ -3,9 +3,10 @@ import "./IlacAdd.css";
 import { useState } from "react";
 import IlacAddForm from "./IlacAddForm";
 
-const IlacAdd = ({setIlaclar, ilaclar}) => {
+const IlacAdd = ({ setIlaclar, ilaclar, setCheckedList }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [resultModalOpen, setResultModalOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleOnClick = (state) => {
     setModalOpen(state);
@@ -25,22 +26,40 @@ const IlacAdd = ({setIlaclar, ilaclar}) => {
       <Modal
         className="modal"
         open={modalOpen}
-        onCancel={() => {handleOnClick(false); setIsSuccess(false)}}
-        onClose={() => {handleOnClick(false); setIsSuccess(false)}}
-        onOk={() => {handleOnClick(false)}}
-        okType="default"
+        onCancel={() => {
+          handleOnClick(false);
+        }}
+        onOk={() => handleOnClick(false)}
         footer={null}
         closable={false}
         width={400}
-        style={{justifyContent:"center", alignContent:"center"}}
-        destroyOnHidden
+        destroyOnClose
       >
         <IlacAddForm
-        setModalOpen={setModalOpen} 
-        isSuccess={isSuccess} 
-        setIsSuccess={setIsSuccess} 
-        setIlaclar={setIlaclar}
-        ilaclar={ilaclar}></IlacAddForm>
+          setModalOpen={setModalOpen}
+          setResultModalOpen={setResultModalOpen}
+          setMessage={setMessage}
+          setIlaclar={setIlaclar}
+          ilaclar={ilaclar}
+          setCheckedList={setCheckedList}
+        />
+      </Modal>
+
+      <Modal
+        open={resultModalOpen}
+        onCancel={() => setResultModalOpen(false)}
+        onOk={() => setResultModalOpen(false)}
+        footer={null}
+        closable={false}
+      >
+        <h2>{message}</h2>
+        <Button
+          type="primary"
+          onClick={() => setResultModalOpen(false)}
+          style={{ marginTop: "10px" }}
+        >
+          Tamam
+        </Button>
       </Modal>
     </>
   );

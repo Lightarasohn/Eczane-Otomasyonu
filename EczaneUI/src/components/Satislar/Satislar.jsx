@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Satislar.css";
-import { Card, Row, Col, Modal } from "antd";
+import { Card, List, Modal } from "antd";
 import SatisDetay from "./SatisDetay";
 
 const Satislar = ({ satislar }) => {
@@ -9,9 +9,16 @@ const Satislar = ({ satislar }) => {
 
   return (
     <>
-      <Row gutter={[16, 16]}>
-        {[...satislar].reverse().map((satis) => (
-          <Col span={6} key={satis.id}>
+      <List
+        grid={{ gutter: 16, column: 4 }}
+        dataSource={[...satislar].reverse()}
+        pagination={{
+          pageSize: 12,
+          showSizeChanger: false,
+          showLessItems: true,
+        }}
+        renderItem={(satis) => (
+          <List.Item key={satis.id}>
             <Card
               hoverable
               onClick={() => {
@@ -25,9 +32,9 @@ const Satislar = ({ satislar }) => {
                 Tarih: {satis.satisTarihi.replace("T", "  Saat:  ")}
               </div>
             </Card>
-          </Col>
-        ))}
-      </Row>
+          </List.Item>
+        )}
+      />
 
       <Modal
         open={isOpen}

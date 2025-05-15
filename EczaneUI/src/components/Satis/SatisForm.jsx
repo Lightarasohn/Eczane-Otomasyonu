@@ -2,7 +2,7 @@ import { InputNumber, Button, Form, Input, Modal } from "antd";
 import { useState } from "react";
 import "./SatisForm.css";
 
-const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
+const SatisForm = ({ checkedList, setIsOpen, handleSubmit, message, setMessage }) => {
   const [miktarData, setMiktarData] = useState({});
   const [isError, setIsError] = useState(false);
 
@@ -14,7 +14,20 @@ const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
   };
 
   const onFinish = (values) => {
+    let isError = false;
     if (checkedList.length === 0) {
+      setMessage("Satış için en az 1 ilaç seçilmelidir");
+      isError = true;
+    }
+    checkedList.forEach(ilac => {
+      if(miktarData[ilac.id] > ilac.stokDurumu){
+        setMessage(`Seçilen ilaç miktarı (${miktarData[ilac.id]}) kadar ilaç stokta yok. İlaç:${ilac.adi} Stok:${ilac.stokDurumu}`)
+        isError = true;
+        return;
+      }
+    })
+
+    if(isError){
       setIsError(true);
       return;
     }
@@ -28,6 +41,7 @@ const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
     };
 
     handleSubmit(result);
+    setIsError(true);
   };
 
   return (
@@ -94,7 +108,7 @@ const SatisForm = ({ checkedList, setIsOpen, handleSubmit }) => {
     <Modal footer={null} onCancel={() => setIsError(false)} onClose={() => setIsError(false)}
     onOk={() => setIsError(false)}
     open={isError}>
-      <h1>Satış için en az 1 ilaç seçilmelidir</h1>
+      <h1>{message}</h1>
       <Button type="primary" danger variant="solid" onClick={() => setIsError(false)}>Tamam</Button>
     </Modal>
     </>

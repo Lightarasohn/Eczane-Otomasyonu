@@ -3,15 +3,24 @@ import "./SatisButton.css"
 import { useState } from "react";
 import SatisForm from "./SatisForm";
 import SatisOlustur from "../../api/SatisOlustur";
+import GetIlaclar from "../../api/GetIlaclar";
 
 
-const SatisButton = ({checkedList, satislar, setSatislar}) => {
+const SatisButton = ({checkedList, satislar, setSatislar, setIlaclar}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (values) => {
     console.log(values)
     const satis = await SatisOlustur(values);
-    setSatislar([...satislar, satis])
+    if(satis != null){
+      setMessage("Satis eklendi");
+      setSatislar([...satislar, satis])
+      const yeniIlaclar = await GetIlaclar();
+      setIlaclar(yeniIlaclar);
+    }else{
+      setMessage("Satis eklenmedi");
+    }
   };
 
   return (
@@ -33,7 +42,12 @@ const SatisButton = ({checkedList, satislar, setSatislar}) => {
         closable={false}
         destroyOnClose
       >
-        <SatisForm checkedList={checkedList} setIsOpen={setIsOpen} handleSubmit={handleSubmit}/>
+        <SatisForm 
+        checkedList={checkedList}
+        setIsOpen={setIsOpen} 
+        handleSubmit={handleSubmit}
+        message={message}
+        setMessage={setMessage}/>
       </Modal>
     </>
   );

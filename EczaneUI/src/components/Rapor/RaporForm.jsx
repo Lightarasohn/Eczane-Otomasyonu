@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form } from "antd";
+import { Button, DatePicker, Form, Modal } from "antd";
 const { RangePicker } = DatePicker;
 
 import "./RaporForm.css";
@@ -7,15 +7,29 @@ import RaporOluştur from "../../api/RaporOlustur";
 
 const RaporForm = ({ setIsOpen, satislar, raporlar, setRaporlar }) => {
   const [tarihAraligi, setTarihAraligi] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleFormClick = async () => {
     if (tarihAraligi) {
       const [startDate, endDate] = tarihAraligi;
-      const createdRapor = await RaporOluştur(startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"), satislar) 
-      
-      createdRapor != null ? setRaporlar([...raporlar, createdRapor]) : setRaporlar([...raporlar]);
+      const createdRapor = await RaporOluştur(
+        startDate.format("YYYY-MM-DD"),
+        endDate.format("YYYY-MM-DD"),
+        satislar
+      );
+
+      if (createdRapor != null) {
+        setRaporlar([...raporlar, createdRapor]);
+        setMessage("Rapor başarıyla oluşturuldu.");
+      } else {
+        setMessage("Rapor oluşturulamadı.");
+      }
+
+      setIsModalOpen(true); // Bilgilendirme modali açılır
     } else {
-      console.log("Tarih aralığı seçilmedi");
+      setMessage("Lütfen tarih aralığı seçiniz.");
+      setIsModalOpen(true);
     }
   };
 
@@ -39,6 +53,24 @@ const RaporForm = ({ setIsOpen, satislar, raporlar, setRaporlar }) => {
           Kapat
         </Button>
       </div>
+
+      <Modal
+        open={isModalOpen}
+        footer={null}
+        onCancel={() => setIsModalOpen(false)}
+        onOk={() => setIsModalOpen(false)}
+        closable={false}
+      >
+        <h2>{message}</h2>
+        <Button
+          type="primary"
+          danger
+          onClick={() => setIsModalOpen(false)}
+          style={{ marginTop: "10px" }}
+        >
+          Tamam
+        </Button>
+      </Modal>
     </>
   );
 };

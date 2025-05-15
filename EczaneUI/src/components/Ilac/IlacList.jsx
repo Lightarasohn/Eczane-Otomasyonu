@@ -13,8 +13,8 @@ const IlacList = ({
   return (
     <List
       pagination={{
-        pageSize: 4, // ✅ Her sayfada maksimum 4 öğe göster
-        showSizeChanger: false, // Kullanıcının sayfa başına öğe sayısını değiştirmesini engelle
+        pageSize: 4,
+        showSizeChanger: false,
       }}
       className="ilac-list"
       itemLayout="horizontal"

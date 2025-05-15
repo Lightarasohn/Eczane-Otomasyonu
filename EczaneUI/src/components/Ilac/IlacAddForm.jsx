@@ -1,47 +1,58 @@
 import { Button, Form, Input, InputNumber } from "antd";
 import "./IlacAddForm.css";
 import AddIlac from "../../api/AddIlac";
-import GetIlaclar from "../../api/GetIlaclar";
 
 const IlacAddForm = ({
   setModalOpen,
-  isSuccess,
-  setIsSuccess,
+  setResultModalOpen,
+  setMessage,
   setIlaclar,
   ilaclar,
+  setCheckedList,
 }) => {
+  const [form] = Form.useForm();
+
   const handleOnSubmit = async (values) => {
     const response = await AddIlac(values);
     if (response !== null) {
-      console.log(response);
       const ilac = {
         id: response.id,
         adi: response.adi,
         fiyati: response.fiyati,
-        stokDurumu: response.stokDurumu
-      }
+        stokDurumu: response.stokDurumu,
+      };
       setIlaclar([...ilaclar, ilac]);
-      setIsSuccess(true);
+
+      if (setCheckedList) {
+        setCheckedList([]);
+      }
+
+      setMessage("İlaç başarıyla eklendi.");
+    } else {
+      setMessage("İlaç eklenemedi.");
     }
+
+    setModalOpen(false);
+    setResultModalOpen(true);
+    form.resetFields();
   };
 
   return (
     <>
-      <Form onFinish={handleOnSubmit} style={{justifyContent:"center"}}>
+      <Form
+        form={form}
+        onFinish={handleOnSubmit}
+        style={{ justifyContent: "center" }}
+      >
         <Form.Item
           label="İlaç Adı"
           name="adi"
           style={{ width: "300px" }}
-          rules={[
-            { required: true, message: "İlaç adı girilmelidir" }
-          ]}
+          rules={[{ required: true, message: "İlaç adı girilmelidir" }]}
         >
-          <Input
-            placeholder="ilac adi"
-            required
-            onChange={() => setIsSuccess(false)}
-          ></Input>
+          <Input placeholder="İlaç adı" />
         </Form.Item>
+
         <Form.Item
           label="Fiyat"
           name="fiyati"
@@ -55,7 +66,7 @@ const IlacAddForm = ({
             },
           ]}
         >
-          <InputNumber style={{width:"50px"}} placeholder="10" onChange={() => setIsSuccess(false)} />
+          <InputNumber style={{ width: "100%" }} placeholder="10" />
         </Form.Item>
 
         <Form.Item
@@ -71,24 +82,25 @@ const IlacAddForm = ({
             },
           ]}
         >
-          <InputNumber style={{width:"70px"}} placeholder="100" onChange={() => setIsSuccess(false)} />
+          <InputNumber style={{ width: "100%" }} placeholder="100" />
         </Form.Item>
 
-        <Button htmlType="submit" type="primary">
-          İlaci Ekle
-        </Button>
-        <Button
-          type="primary"
-          danger
-          onClick={() => {
-            setModalOpen(false);
-            setIsSuccess(false);
-          }}
-        >
-          Çık
-        </Button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button htmlType="submit" type="primary">
+            İlaç Ekle
+          </Button>
+          <Button
+            type="primary"
+            danger
+            onClick={() => {
+              setModalOpen(false);
+              form.resetFields();
+            }}
+          >
+            Çık
+          </Button>
+        </div>
       </Form>
-      {isSuccess ? <h1 color="green">İlac eklendi</h1> : <></>}
     </>
   );
 };

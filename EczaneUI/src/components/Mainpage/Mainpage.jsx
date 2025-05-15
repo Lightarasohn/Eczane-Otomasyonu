@@ -33,11 +33,12 @@ const Mainpage = () => {
       case "2":
         return (
           <>
-            <IlacAdd setIlaclar={setIlaclar} ilaclar={ilaclar} />
+            <IlacAdd setCheckedList={setCheckedList} setIlaclar={setIlaclar} ilaclar={ilaclar} />
             <SatisButton
               checkedList={checkedList}
               satislar={satislar}
               setSatislar={setSatislar}
+              setIlaclar={setIlaclar}
             />
           </>
         );
