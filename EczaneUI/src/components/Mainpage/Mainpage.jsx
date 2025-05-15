@@ -10,14 +10,13 @@ import SatisButton from "../Satis/SatisButton";
 import RaporButton from "../Rapor/RaporButton";
 
 const Mainpage = () => {
-  const [page, setPage] = useState("1");
+  const [page, setPage] = useState("2");
   const [ilaclar, setIlaclar] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
   const [satislar, setSatislar] = useState([]);
   const [raporlar, setRaporlar] = useState([]);
 
   const items = [
-    { key: "1", label: "Ana Sayfa" },
     { key: "2", label: "İlaçlar" },
     { key: "3", label: "Satışlar" },
     { key: "4", label: "Raporlama" },
@@ -68,7 +67,7 @@ const Mainpage = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["2"]}
           items={items}
           onClick={handleMenuClick}
         />
