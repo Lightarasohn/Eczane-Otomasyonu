@@ -7,7 +7,7 @@ const DeleteILac = async (ilacId) => {
     return await fetch(`http://localhost:5169/api/ilac/${ilacId}`, requestOptions)
     .then((result) => result.json())
     .then((data) => {return data})
-    .catch((e) => {console.log(e)});
+    .catch((e) => {console.log(e); return null});
 }
 
 export default DeleteILac;
