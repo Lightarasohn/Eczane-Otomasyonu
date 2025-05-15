@@ -1,0 +1,9 @@
+.card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-text:hover {
+    overflow:visible;
+}

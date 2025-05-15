@@ -1,0 +1,42 @@
+.ilac-item {
+  display: flex;
+  flex-direction: row; /* Yatay düzen */
+  align-items: center; /* Dikey hizalama */
+  justify-content: space-between; /* Öğeler arasında boşluk */
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+  gap: 20px; /* Öğeler arasındaki mesafe */
+}
+
+.ilac-item-name {
+  font-size: 20px;
+  font-weight: bold;
+  flex: 0; /* Sabit genişlik */
+}
+
+.ilac-item-stok {
+  font-size: 14px;
+  color: #666;
+  flex: 0; /* Sabit genişlik */
+}
+
+.ilac-item-price {
+  font-size: 16px;
+  color: #888;
+  flex: 1; /* Geniş alan */
+  text-align: right; /* Sağ tarafa hizalama */
+}
+
+.ilac-item-checkbox {
+  flex: 0; /* Sabit genişlik */
+  margin-left: auto; /* Sağ tarafa yaslama */
+}
+
+.ilac-item-delete-button {
+  font-size: 16px;
+  width: fit-content;
+  text-align: right;
+  margin-left: 10px; /* Buton ile fiyat arasındaki mesafeyi artırmak için */
+  flex: 0; /* Sabit genişlik */
+}

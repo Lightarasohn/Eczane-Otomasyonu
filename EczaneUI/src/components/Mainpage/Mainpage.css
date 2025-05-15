@@ -1,0 +1,11 @@
+.mainpage-outside-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.mainpage-inside-header {
+    justify-content: space-evenly;
+    gap: 10px;
+}

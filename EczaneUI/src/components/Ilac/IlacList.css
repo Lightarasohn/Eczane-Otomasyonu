@@ -1,0 +1,10 @@
+.ilac-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 300px;
+    padding-right: 300px;
+    width: 100%;
+    min-height: 400px; 
+  position: relative;
+}
